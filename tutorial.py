@@ -11,7 +11,8 @@ titanic = pd.read_csv("train.csv")
 print (titanic.head(5)) # Print first 5 rows of csv
 print (titanic.describe()) # Age only shows 714 rows, others are 891. Need to clean data!
 
-titanic["Age"] = titanic["Age"].fillna(titanic["Age"].median()) # Fill in empty cells with median of all 
+# Fill in empty cells with median of all 
+titanic["Age"] = titanic["Age"].fillna(titanic["Age"].median()) 
 
 print (titanic.describe()) #Check the data cleaning has worked :)
 
@@ -21,7 +22,13 @@ print (titanic.describe()) #Check the data cleaning has worked :)
 
 # Let's have a go of converting the gender(sex) column
 # Select all male values in the column, replace them with 0
-
 titanic.loc[titanic["Sex"] == "male","Sex"] = 0
 
-print (titanic.describe()) #Check the data cleaning has worked :)
+# Convert the embarked column 
+# First step is to replace all missing values in the column
+# Most common value is S so lets assume everyone got on there
+titanic["Embarked"] = titanic["Embarked"].fillna("S")
+# Fill in numeric values
+titanic.loc[titanic["Embarked"] == "S", "Embarked"] = 0
+titanic.loc[titanic["Embarked"] == "C", "Embarked"] = 1
+titanic.loc[titanic["Embarked"] == "Q", "Embarked"] = 2
