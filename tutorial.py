@@ -13,4 +13,15 @@ print (titanic.describe()) # Age only shows 714 rows, others are 891. Need to cl
 
 titanic["Age"] = titanic["Age"].fillna(titanic["Age"].median()) # Fill in empty cells with median of all 
 
-print (titanic.describe())
+print (titanic.describe()) #Check the data cleaning has worked :)
+
+# Non numeric columns, how do we deal with them?
+# We have to exclude our non numeric columns when we are training
+# Or we could convert them to numeric columns! 
+
+# Let's have a go of converting the gender(sex) column
+# Select all male values in the column, replace them with 0
+
+titanic.loc[titanic["Sex"] == "male","Sex"] = 0
+
+print (titanic.describe()) #Check the data cleaning has worked :)
