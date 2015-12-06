@@ -68,4 +68,17 @@ from sklearn.linear_model import LinearRegression
 #Helped for cross validation 
 from sklearn.cross_validation import KFold
 
+# The columns we will use to predict target
+predictors = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked"]
 
+# Initialize transfer function
+alg = LinearRegression()
+# Generate cross validation folds for the titanic dataset. It should 
+# return the row indices corresponding to the training test set.
+# We set random_state to ensure we get the same splits every time we run this.
+kf = KFold(titanic.shape[0], n_folds=3, random_state=1) # Lookup random_state in docs
+
+predictions = []
+for train, test in kf:
+	# Predictors being used to train algorithm. Only take the rows in
+	# the train folds?
