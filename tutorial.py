@@ -32,3 +32,25 @@ titanic["Embarked"] = titanic["Embarked"].fillna("S")
 titanic.loc[titanic["Embarked"] == "S", "Embarked"] = 0
 titanic.loc[titanic["Embarked"] == "C", "Embarked"] = 1
 titanic.loc[titanic["Embarked"] == "Q", "Embarked"] = 2
+
+"""
+On to actual Machine Learning!
+Cross Validation:
+-----------------
+We can now use linear regression  to make predictions on our training set!
+We want to train algorithm on different data than we make predictions on.
+
+This is critical if we want to avoid overfitting - when a model fits itself
+to noise, not signal.
+
+Cross validation is a good way to avoid overfitting
+To cross validate you split your data into some number of parts, lets
+use 3 as an example:
+
+Combine 1st two parts, train a model, make predictions on the 3rd.
+Combine 1st and 3rd parts, train a model, make predictions on the 2nd.
+Combine 2nd and 3rd parts, train a model, make predictions on the 1st.
+
+This way, we make predictions on the whole dataset without ever evaluating
+accuracy on the same dataset we train our model using. 
+"""
