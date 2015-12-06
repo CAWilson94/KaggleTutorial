@@ -35,6 +35,7 @@ titanic.loc[titanic["Embarked"] == "Q", "Embarked"] = 2
 
 """
 On to actual Machine Learning!
+
 Cross Validation:
 -----------------
 We can now use linear regression  to make predictions on our training set!
@@ -52,5 +53,19 @@ Combine 1st and 3rd parts, train a model, make predictions on the 2nd.
 Combine 2nd and 3rd parts, train a model, make predictions on the 1st.
 
 This way, we make predictions on the whole dataset without ever evaluating
-accuracy on the same dataset we train our model using. 
+accuracy on the same dataset we train our model using.
+
+Making Predictions:
+------------------- 
+Use the Sci-kit learn library to make predictions
+Use a helper from Sci-kit learn to split our data into crossvalidation folds
+Then train an algorithm for each fold, and make predictions,
+at the end we have a list of predictions, each list item containing 
+predictions for the corresponding fold
 """
+#Import the linear regression model
+from sklearn.linear_model import LinearRegression
+#Helped for cross validation 
+from sklearn.cross_validation import KFold
+
+
