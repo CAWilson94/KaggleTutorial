@@ -82,3 +82,9 @@ predictions = []
 for train, test in kf:
 	# Predictors being used to train algorithm. Only take the rows in
 	# the train folds?
+	train_predictors = (titanic[predictors].iloc[train,:])
+	# The target we are using to train the algorithm
+	alg.fit(train_predictors, train_target)
+	# We can now make predictions on the test fold
+	test_prediction = alg.prediction(titanic[predictors].iloc[test,:])
+	predictions.append(test_predictions) # Add predictions to end of array
