@@ -94,5 +94,32 @@ for train, test in kf: # Basically a nested for loop
 	test_predictions = lr.predict(titanic[predictors].iloc[test,:])
 	predictions.append(test_predictions) # Add predictions to end of array
 
-print "train are: \n"
-print train_target
+"""
+Evaluating the error! :D 
+------------------------
+First need to define error metric so we can figure out how accurate our 
+model is. The error metric is a percentage of correct predictions. We
+can use this same metric to evaluate our performance locally.
+
+This metric will involve finding the number of values in predictions that 
+are the exact same as their counterparts in titanic["Survived"], and Then
+divided by the total number of passangers.
+
+Before we can do this we must combine the 3 sets of predictions into one 
+column. Since each set of predictions is numpy array, we should use a numpy
+function to concatenate them into one.
+
+"""
+
+# The predictions are, so far, in 3 separate numpy arrays - concatenate 
+# them into one.
+
+# We concatenate them on the axis 0, as they only have one axis.
+predictions = np.concatenate(predictions, axis = 0)
+
+# Map prediction to outcome (only possible outcomes are 1 or 0)
+predictions[predictions > .5] = 1
+predictions[predictions <=.5] = 0
+
+accuracy = sum(predictions[predictions == titanic["Survived"]]) / len(predictions)
+print accuracy
