@@ -4,7 +4,7 @@ Going through Kaggle tutorial
 
 """
 import csv as csv
-import numpy as mp
+import numpy as np
 import pandas as pd
 
 titanic = pd.read_csv("train.csv")
@@ -68,23 +68,26 @@ from sklearn.linear_model import LinearRegression
 #Helped for cross validation 
 from sklearn.cross_validation import KFold
 
-# The columns we will use to predict target
+# The columns we will use to predict target (the features?)
 predictors = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked"]
 
 # Initialize transfer function
-alg = LinearRegression()
+lr = LinearRegression()
 # Generate cross validation folds for the titanic dataset. It should 
 # return the row indices corresponding to the training test set.
 # We set random_state to ensure we get the same splits every time we run this.
 kf = KFold(titanic.shape[0], n_folds=3, random_state=1) # Lookup random_state in docs
+# titanic.shape[0] would be the rows
 
-predictions = []
-for train, test in kf:
+
+predictions = [] # The predictions that will be made
+for train, test in kf: # Basically a nested for loop
 	# Predictors being used to train algorithm. Only take the rows in
 	# the train folds?
+	print train
 	train_predictors = (titanic[predictors].iloc[train,:])
 	# The target we are using to train the algorithm
-	alg.fit(train_predictors, train_target) """ Train_target not defined""" 
+	#alg.fit(train_predictors, train_target) """Train_target not defined""" 
 	# We can now make predictions on the test fold
-	test_prediction = alg.prediction(titanic[predictors].iloc[test,:])
-	predictions.append(test_predictions) # Add predictions to end of array
+	#test_prediction = lr.prediction(titanic[predictors].iloc[test,:])
+	#predictions.append(test_predictions) # Add predictions to end of array
