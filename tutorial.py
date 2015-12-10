@@ -23,6 +23,8 @@ print (titanic.describe()) #Check the data cleaning has worked :)
 # Let's have a go of converting the gender(sex) column
 # Select all male values in the column, replace them with 0
 titanic.loc[titanic["Sex"] == "male","Sex"] = 0
+# Select all female values in column, replace values with 1
+titanic.loc[titanic["Sex"] == "female","Sex"] = 1
 
 # Convert the embarked column 
 # First step is to replace all missing values in the column
@@ -70,7 +72,6 @@ from sklearn.cross_validation import KFold
 
 # The columns we will use to predict target (the features?)
 predictors = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked"]
-
 # Initialize transfer function
 lr = LinearRegression()
 # Generate cross validation folds for the titanic dataset. It should 
@@ -84,11 +85,14 @@ predictions = [] # The predictions that will be made
 for train, test in kf: # Basically a nested for loop
 	# Predictors being used to train algorithm. Only take the rows in
 	# the train folds?
-	print train
 	train_predictors = (titanic[predictors].iloc[train,:])
 	# The target we are using to train the algorithm
 	train_target = titanic["Survived"].iloc[train]
-	alg.fit(train_predictors, train_target) """Train_target not defined""" 
+	# Training the algorithm with predictors and target
+	lr.fit(train_predictors, train_target)
 	# We can now make predictions on the test fold
-	#test_prediction = lr.prediction(titanic[predictors].iloc[test,:])
-	#predictions.append(test_predictions) # Add predictions to end of array
+	test_predictions = lr.predict(titanic[predictors].iloc[test,:])
+	predictions.append(test_predictions) # Add predictions to end of array
+
+print "train are: \n"
+print train_target
