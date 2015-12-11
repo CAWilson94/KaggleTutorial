@@ -40,13 +40,19 @@ titanic_test[titanic_test["Sex"] == "female", "Sex"] = 1	# Female values to 1
 titanic["Embarked"] = titanic["Embarked"].fillna("S")
 titanic_test["Embarked"] = titanic_test["Ambarked"].fillna("S")
 
-# Fill in numeric values
+# Fill in numeric values for training data
 titanic.loc[titanic["Embarked"] == "S", "Embarked"] = 0
-titanic_test.loc[titanic_test["Embarked"] == "S", "Embarked"] = 0
 titanic.loc[titanic["Embarked"] == "C", "Embarked"] = 1
-titanic_test.loc[titanic_test["Embarked"] == "C", "Embarked"] = 1
 titanic.loc[titanic["Embarked"] == "Q", "Embarked"] = 2
+
+# Fill in numeric values for testing data
+titanic_test.loc[titanic_test["Embarked"] == "S", "Embarked"] = 0
+titanic_test.loc[titanic_test["Embarked"] == "C", "Embarked"] = 1
 titanic_test.loc[titanic_test["Embarked"] == "Q", "Embarked"] = 2
+
+# Replace missing value in "Fare" column of test set
+titanic_test["Fare"] = titanic_test["Fare"].fillna(titanic_test["Fare"].median())
+
 
 """
 Logistic regression!! :D
