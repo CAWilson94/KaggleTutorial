@@ -51,6 +51,9 @@ predictors = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked"]
 # Initialize our algorithm
 logReg = LogisticRegression(random_state=1)
 # Compute the accuracy score for all the cross validation folds.
-scores = cross_validation.cross_val_score(logReg, titanic[predictors], titanic["Survived"], cv=3) # cv=3, is the number of folds
+scores = cross_validation.cross_val_score(logReg, titanic[predictors], titanic["Survived"], cv=3) # cv=3, is the number of folds 	
 # Take the mean of the scores (because we have one for each fold)
 print(scores.mean())
+
+# Processing the test set
+# Need to take same steps with the test set as we have done with our training data
