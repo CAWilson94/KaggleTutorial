@@ -9,7 +9,7 @@ import pandas as pd
 
 
 titanic = pd.read_csv("train.csv")					# Read in training data
-titanic_test = pd.read_csv("titanic_test.csv")		# Read in testing data
+titanic_test = pd.read_csv("test.csv")				# Read in testing data
 
 print (titanic.head(5)) 						# Print first 5 rows of csv
 print (titanic.describe()) 						# Age only shows 714 rows, 
@@ -19,27 +19,34 @@ print(titanic_test.describe())					# checks on the test data.
 
 # Fill in empty cells with median of all 
 titanic["Age"] = titanic["Age"].fillna(titanic["Age"].median()) 
+titanic_test["Age"] = titanic_test["Age"].fillna(titanic_test["Age"].median())
 
-print (titanic.describe()) #Check the data cleaning has worked :)
+print (titanic.describe()) 					# Data cleaning check
+print (titanic_test.describe())				# Data cleaning check 
 
-# Non numeric columns, how do we deal with them?
-# We have to exclude our non numeric columns when we are training
-# Or we could convert them to numeric columns! 
+# Non numeric columns, how do we deal with them? We have to exclude our 
+# non numeric columns when we are training or we could convert them to 
+# numeric columns! These non numeric columns normally mean we are dealing
+# with a classification problem. 
+titanic.loc[titanic["Sex"] == "male","Sex"] = 0		# Convert male values to 0
+titanic.loc[titanic["Sex"] == "female","Sex"] = 1 	# Convert female values to 1
 
-# Let's have a go of converting the gender(sex) column
-# Select all male values in the column, replace them with 0
-titanic.loc[titanic["Sex"] == "male","Sex"] = 0
-# Select all female values in column, replace values with 1
-titanic.loc[titanic["Sex"] == "female","Sex"] = 1
+titanic_test[titanic_test["Sex"] == "male", "Sex"] = 0 		# Male values to 0
+titanic_test[titanic_test["Sex"] == "female", "Sex"] = 1	# Female values to 1
 
-# Convert the embarked column 
-# First step is to replace all missing values in the column
-# Most common value is S so lets assume everyone got on there
+# The Embarked column for both sets, had to be converte to numbers also. So, the 
+# first step is to replace all missing values in the column. The most common value
+# is S so lets assume everyone got on there.
 titanic["Embarked"] = titanic["Embarked"].fillna("S")
+titanic_test["Embarked"] = titanic_test["Ambarked"].fillna("S")
+
 # Fill in numeric values
 titanic.loc[titanic["Embarked"] == "S", "Embarked"] = 0
+titanic_test.loc[titanic_test["Embarked"] == "S", "Embarked"] = 0
 titanic.loc[titanic["Embarked"] == "C", "Embarked"] = 1
+titanic_test.loc[titanic_test["Embarked"] == "C", "Embarked"] = 1
 titanic.loc[titanic["Embarked"] == "Q", "Embarked"] = 2
+titanic_test.loc[titanic_test["Embarked"] == "Q", "Embarked"] = 2
 
 """
 Logistic regression!! :D
