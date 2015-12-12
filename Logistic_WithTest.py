@@ -60,6 +60,11 @@ Logistic regression!! :D
 Using logistic regression to predict accuracy score when 
 making predictions
 
+The target, response or dependant variable is a simple, did they Survive
+or not. So we are trying to assert the possibility of them surviving.
+p = Survive (i.e. the event of them surviving occuring) 
+p - 1 = the event not occuring. (Do not survive)
+
 """
 
 from sklearn import cross_validation
