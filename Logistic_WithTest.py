@@ -69,19 +69,19 @@ p = Survive (i.e. the event of them surviving occuring)
 p - 1 = the event not occuring. (Do not survive)
 
 """
-
+# 1. Import model
 from sklearn import cross_validation
 from sklearn.linear_model import LogisticRegression
 
 predictors = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked"]
 
-# Initialize our algorithm
+# 2. Instantiate the "estimator" (scikit learn's term for model)
 logReg = LogisticRegression(random_state=1)
 
-# Train the algorithm using training data
+# 3. Train(fit) the algorithm using training data
 logReg.fit(titanic[predictors], titanic["Survived"])
 
-# Make predictions using test set
+# 4. Make predictions using test set
 predictions = logReg.predict(titanic_test[predictors])
 
 # Make dataframe containing columns Kaggle wants from the dataset
