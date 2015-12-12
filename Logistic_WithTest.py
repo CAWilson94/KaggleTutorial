@@ -1,4 +1,6 @@
 """ 
+Author @Charlotte Alexandra Wilson
+Date   November 2015
 Going through Kaggle tutorial 
 (uses interactive code boxes)
 
@@ -39,7 +41,7 @@ titanic_test.loc[titanic_test["Sex"] == "female", "Sex"] = 1	# Female values to 
 # first step is to replace all missing values in the column. The most common value
 # is S so lets assume everyone got on there.
 titanic["Embarked"] = titanic["Embarked"].fillna("S")
-titanic_test["Embarked"] = titanic_test["Ambarked"].fillna("S")
+titanic_test["Embarked"] = titanic_test["Embarked"].fillna("S")
 
 # Fill in numeric values for training data
 titanic.loc[titanic["Embarked"] == "S", "Embarked"] = 0
@@ -75,10 +77,40 @@ predictors = ["Pclass", "Sex", "Age", "SibSp", "Parch", "Fare", "Embarked"]
 
 # Initialize our algorithm
 logReg = LogisticRegression(random_state=1)
+
+# Train the algorithm using training data
+logReg.fit(titanic[predictors], titanic["Survived"])
+
+# Make predictions using test set
+predictions = logReg.predict(titanic_test[predictors])
+
+# Make dataframe containing columns Kaggle wants from the dataset
+submission = pd.DataFrame({
+		"PassengerId": titanic_test["PassengerId"],
+		"Survived": predictions
+	})
+
+# The below is just for my own learning and satsifaction 
 # Compute the accuracy score for all the cross validation folds.
 scores = cross_validation.cross_val_score(logReg, titanic[predictors], titanic["Survived"], cv=3) # cv=3, is the number of folds 	
 # Take the mean of the scores (because we have one for each fold)
 print(scores.mean())
 
-# Processing the test set
-# Need to take same steps with the test set as we have done with our training data
+"""
+Generating a submission file! :D 
+(1) Train an algorithm on the training data
+(2) Make predictions on the test set
+(3) Generate a CSV with predictions and passengers ids 
+Can output a CSV using: submission.to_csv("kaggle.csv",index=False) 
+
+"""
+
+# Generating a submission file 
+submission.to_csv("kaggle.csv",index=False)
+
+print "submission file generated"
+
+
+
+
+
