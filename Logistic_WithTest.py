@@ -19,7 +19,8 @@ print(titanic_test.describe())					# checks on the test data.
 
 # Fill in empty cells with median of all 
 titanic["Age"] = titanic["Age"].fillna(titanic["Age"].median()) 
-titanic_test["Age"] = titanic_test["Age"].fillna(titanic_test["Age"].median())
+# The age has to be the exact same values we filled the training set with.
+titanic_test["Age"] = titanic_test["Age"].fillna(titanic["Age"].median())
 
 print (titanic.describe()) 					# Data cleaning check
 print (titanic_test.describe())				# Data cleaning check 
@@ -31,8 +32,8 @@ print (titanic_test.describe())				# Data cleaning check
 titanic.loc[titanic["Sex"] == "male","Sex"] = 0		# Convert male values to 0
 titanic.loc[titanic["Sex"] == "female","Sex"] = 1 	# Convert female values to 1
 
-titanic_test[titanic_test["Sex"] == "male", "Sex"] = 0 		# Male values to 0
-titanic_test[titanic_test["Sex"] == "female", "Sex"] = 1	# Female values to 1
+titanic_test.loc[titanic_test["Sex"] == "male", "Sex"] = 0 		# Male values to 0
+titanic_test.loc[titanic_test["Sex"] == "female", "Sex"] = 1	# Female values to 1
 
 # The Embarked column for both sets, had to be converte to numbers also. So, the 
 # first step is to replace all missing values in the column. The most common value
